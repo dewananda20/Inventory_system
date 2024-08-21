@@ -1,7 +1,7 @@
-<div class="sidebar fixed top-0 bottom-0 lg:left-0 left-[-300px] p-2 w-[280px]  overflow-y-auto bg-[#0F1626]">
+<div class="sidebar fixed top-0 bottom-0 lg:left-0 left-[-300px] p-2 w-[280px] overflow-y-auto bg-[#333333]">
     <div class="text-gray-900 text-xl">
         <div class="p-2.5 mt-1 flex items-center">
-            <i class="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-800"></i>
+            <i class="bi bi-box-seam-fill px-2 py-1 rounded-md bg-yellow-400"></i>
             <h1 class="font-bold text-gray-200 text-[15px] ml-3">Inventory Application</h1>
             <i class="bi bi-x ml-32 cursor-pointer text-white lg:hidden" onclick="Open()"></i>
         </div>

@@ -15,6 +15,8 @@ Route::get('/admin/users', [AdminController::class, 'showUsers'])->name('users.i
 // Store a newly created user
 Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('users.store');
 
+Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('users.update');
+
 // Delete a user
 Route::delete('/admin/users/{id}', [AdminController::class, 'destroyUser'])->name('users.destroy');
 

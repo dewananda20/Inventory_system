@@ -28,8 +28,8 @@
                             <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
                             <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $category->name }}</td>
                             <td class="flex justify-center items-center gap-4 p-3">
-                                <button data-modal-target="modal-edit-{{ $category->id }}"
-                                    data-modal-toggle="modal-edit-{{ $category->id }}"
+                                <button data-modal-target="modal-{{ $category->id }}"
+                                    data-modal-toggle="modal-{{ $category->id }}"
                                     class="text-white bg-yellow-300 hover:bg-yellow-400 font-medium rounded-lg text-sm px-4 py-2 text-center"
                                     type="button">
                                     Edit

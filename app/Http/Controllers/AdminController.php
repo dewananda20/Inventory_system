@@ -13,9 +13,7 @@ class AdminController extends Controller
     {
         $users = User::with('roles')->get(); // Fetch users with their roles
         $roles = Role::all(); // Fetch all roles
-        
 
-        // Update view path to match the directory structure
         return view('admins.pages.user', compact('users', 'roles'));
     }
 
@@ -23,8 +21,6 @@ class AdminController extends Controller
     public function createUser()
     {
         $roles = Role::all(); // Fetch all roles
-
-        // Update view path to match the directory structure
         return view('admins.pages.createuser', compact('roles'));
     }
 
@@ -34,16 +30,26 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'role' => 'required|array',
+            'role' => 'required',  // Changed from 'required|array'
         ]);
 
         $user = User::create($request->only('name', 'email'));
 
-        $user->roles()->sync($request->input('role')); // Attach roles to the user
+        // Attach the role (single role handling)
+        $user->roles()->sync([$request->input('role')]);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
+    // Update an existing user
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->role_id = $request->input('role');
+        $user->save();
+        
+        return redirect()->route('admins.pages.user');
+    }
     // Delete a user
     public function destroyUser($id)
     {
