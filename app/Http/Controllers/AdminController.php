@@ -38,24 +38,34 @@ class AdminController extends Controller
         // Attach the role (single role handling)
         $user->roles()->sync([$request->input('role')]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('users.index.admin')->with('success', 'User created successfully.');
     }
 
     // Update an existing user
-    public function update(Request $request, $id)
-    {
-        $user = User::find($id);
-        $user->role_id = $request->input('role');
-        $user->save();
-        
-        return redirect()->route('admins.pages.user');
-    }
+
+    public function updateUser(Request $request, User $user)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'role' => 'required|exists:roles,id', // Validate role input
+    ]);
+
+    // Update user details
+    $user->name = $request->input('name');
+    $user->email = $request->input('email');
+    $user->role_id = $request->input('role'); // Ensure role_id is updated
+    $user->save();
+
+    // Redirect with success message
+    return redirect()->route('users.index.admin')->with('success', 'User updated successfully.');
+}
     // Delete a user
     public function destroyUser($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('users.index.admin')->with('success', 'User deleted successfully.');
     }
 }

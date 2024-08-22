@@ -1,14 +1,17 @@
-<div class="sidebar fixed top-0 bottom-0 lg:left-0 left-[-300px] p-2 w-[300px]  overflow-y-auto text-center bg-slate-900">
+<div class="sidebar fixed top-0 bottom-0 lg:left-0 left-[-300px] p-2 w-[280px] overflow-y-auto bg-[#333333]">
     <div class="text-gray-900 text-xl">
         <div class="p-2.5 mt-1 flex items-center">
-            <i class="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-800"></i>
-            <h1 class="font-bold text-gray-200 text-[15px] ml-3">Inventory</h1>
+            <i class="bi bi-box-seam-fill px-2 py-1 rounded-md bg-yellow-400"></i>
+            <h1 class="font-bold text-gray-200 text-[15px] ml-3">Inventory Application</h1>
             <i class="bi bi-x ml-32 cursor-pointer text-white lg:hidden" onclick="Open()"></i>
         </div>
-        <hr class="my-2 text-gray-600">
+        <div class="border border-white opacity-35 mt-3"></div>
+        {{-- <hr class="my-2 text-gray-600"> --}}
     </div>
-
-    <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-800 text-white">
+    <div class="mt-6 pl-4">
+        <h1 class="text-gray-200 text-[11px] uppercase font-bold">Main Menu</h1>
+    </div>
+    <div class="p-2.5 mt-1.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-800 text-white">
         <i class="bi bi-house-door-fill text-white "></i>
         <a href="/staff-dashboard" class="text-[15px] ml-4 text-gray-200">Dashboard</a>
     </div>
@@ -20,8 +23,12 @@
         <i class="bi bi-tags-fill text-white"></i>
         <a href="/categories-staff" class="text-[15px] ml-4 text-gray-200">Category</a>
     </div>
+    <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-800 text-white">
+        <i class="bi bi-people text-white"></i>
+        <a href="/staff/users" class="text-[15px] ml-4 text-gray-200">System User</a>
+    </div>
 
-    <hr class="my-4 text-gray-600">
+    {{-- <hr class="my-4 text-gray-600"> --}}
     {{-- <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-800 text-white" onclick="dropdown()">
         <i class="bi bi-people-fill text-white"></i>
         <div class="flex justify-between w-full items-center">
@@ -39,7 +46,7 @@
             <a href="/edit-user" id="users">Edit Profile</a>
         </h1>
     </div> --}}
-    <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-800 text-white">
+    {{-- <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-800 text-white">
         <i class="bi bi-box-arrow-in-right text-white"></i>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="ml-4">
             @csrf
@@ -47,5 +54,5 @@
                 Logout
             </button>
         </form>
-    </div>
+    </div> --}}
 </div>

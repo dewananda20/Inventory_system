@@ -4,21 +4,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\MainController;
+use App\Http\Middleware\StaffMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 
-Route::resource('users', UserController::class);
-// Display users
-Route::get('/admin/users', [AdminController::class, 'showUsers'])->name('users.index');
-
-// Store a newly created user
-Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('users.store');
-
-Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('users.update');
-
-// Delete a user
-Route::delete('/admin/users/{id}', [AdminController::class, 'destroyUser'])->name('users.destroy');
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +38,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/categories-admin', [CategoryController::class, 'store'])->name('categories.store.admin');
     Route::get('/categories/{id}', [CategoryController::class, 'show']);
     Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
-    Route::delete('/categories/{id}', [CategoryController::class, 'delete'])->name('categories.destroy');
+    Route::delete('/categories/{id}', [CategoryController::class, 'delete'])->name('categories.destroy.admin');
+    Route::get('/admin/users', [AdminController::class, 'showUsers'])->name('users.index.admin');
+    Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('users.store');
+    Route::put('admin/{user}', [AdminController::class, 'updateUser'])->name('users.update');
+    Route::delete('/admin/users/{id}', [AdminController::class, 'destroyUser'])->name('users.destroy');
 });
 
 Route::middleware(['auth', 'staff'])->group(function () {
@@ -60,4 +54,6 @@ Route::middleware(['auth', 'staff'])->group(function () {
     Route::get('/categories-staff', [CategoryController::class, 'categories']);
     Route::get('/categories-staff/{id}', [CategoryController::class, 'show']);
     Route::put('/categories-staff/{id}', [CategoryController::class, 'update'])->name('categories.update.staff');
+    Route::delete('/categories-staff/{id}', [CategoryController::class, 'delete'])->name('categories.destroy.staff');
+    Route::get('/staff/users', [UserController::class, 'showUsers'])->name('users.index');
 });

@@ -32,17 +32,16 @@
                                     data-modal-toggle="modal-{{ $category->id }}"
                                     class="text-white bg-yellow-300 hover:bg-yellow-400 font-medium rounded-lg text-sm px-4 py-2 text-center"
                                     type="button">
-                                    Edit
-                                    {{-- <i class="bi bi-pencil-fill"></i> --}}
+                                    <i class="bi bi-pencil-fill"></i>
                                 </button>
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
+                                
+                                <form action="{{ route('categories.destroy.staff', $category->id) }}" method="POST"
                                     onsubmit="return confirm('Are you sure you want to delete this category?');" style="display:inline-block; margin: 0;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        class=" text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-4 py-1 text-center">
-                                        Delete
-                                        {{-- <i class="bi bi-trash-fill"></i> --}}
+                                        class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-4 py-2 text-center">
+                                        <i class="bi bi-trash-fill"></i>
                                     </button>
                                 </form>
                             </td>

@@ -4,8 +4,8 @@
     @include('admins.includes.head')
 </head>
 <body>
-    <section class="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center">
-        <div class="w-full max-w-md bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <section class="bg-cover bg-center min-h-screen flex items-center justify-center">
+        <div class="w-full max-w-md bg-white bg-opacity-80 rounded-lg shadow dark:bg-gray-800 dark:bg-opacity-80 dark:border-gray-700">
             <div class="p-6">
                 <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Login Form
@@ -26,6 +26,5 @@
             </div>
         </div>
     </section>
-    
 </body>
 </html>

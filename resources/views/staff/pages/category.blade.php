@@ -1,13 +1,18 @@
 @extends('staff.pages.main')
 
+@include('staff.modals.createcategory')
 @section('title', 'Category')
 
 @section('content')
-    <div class="w-full p-5">
-        <h2 class="text-2xl font-semibold mb-2">Category</h2>
-
-        <!-- Table -->
-        <div class="overflow-x-auto rounded-lg shadow-lg shadow-black/15 mb-6">
+    <div class="w-full p-5 flex flex-col mt-6 gap-4">
+        <h2 class="text-2xl font-semibold mb-2">List Data Categories</h2>
+        <div class="overflow-x-auto rounded-lg shadow-lg shadow-black/15 mb-5">
+            <div class="flex justify-end mb-4">
+                <button onclick="openModal('create-category-modal-staff')"
+                    class="px-4 py-2 bg-blue-600 text-white text-[14px] font-medium rounded-md">
+                    Tambah Data Kategori
+                </button>
+            </div>
             <table class="w-full">
                 <thead class="bg-white border-b-2 border-gray-200">
                     <tr>
@@ -18,39 +23,44 @@
                 </thead>
                 <tbody>
                     @foreach ($categories as $category)
-                    <tr class="bg-white">
-                        <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
-                        <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{$category->name}}</td>
-                        <td>
-                            <div class="flex justify-center gap-2">
-                                <div class="">
-                                    <button data-modal-target="modal-{{ $category->id }}" data-modal-toggle="modal-{{ $category->id }}" class="block text-white bg-green-500 hover:p-2.5 hover:bg-green-600 font-medium rounded-lg text-md p-2.5 text-center" type="button">
-                                        <i class="bi bi-pencil-fill"></i>
+                        <tr class="bg-white">
+                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
+                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $category->name }}</td>
+                            <td class="flex justify-center items-center gap-4 p-3">
+                                <button data-modal-target="modal-{{ $category->id }}"
+                                    data-modal-toggle="modal-{{ $category->id }}"
+                                    class="text-white bg-yellow-300 hover:bg-yellow-400 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                                    type="button">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </button>
+                                
+                                <form action="{{ route('categories.destroy.staff', $category->id) }}" method="POST"
+                                    onsubmit="return confirm('Are you sure you want to delete this category?');" style="display:inline-block; margin: 0;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-4 py-2 text-center">
+                                        <i class="bi bi-trash-fill"></i>
                                     </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr> 
-                    {{-- Detail Modal --}}
-                    @include('staff.modals.editcategory', ['category' => $category])
+                                </form>
+                            </td>
+                        </tr>
+                        {{-- Edit Modal --}}
+                        @include('staff.modals.editcategory', ['category' => $category])
                     @endforeach
                 </tbody>
             </table>
         </div>
-
-        <!-- Form Tambah Category -->
-        <div class="mt-6 bg-white p-6 rounded-lg shadow-lg shadow-black/15">
-            <h3 class="text-xl font-semibold mb-4">Tambah Data Category</h3>
-            <form action="{{ route('categories.store.staff') }}" method="POST">
-                @csrf
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Category Name</label>
-                    <input type="text" name="name" id="name" class="mt-1 block w-full p-2.5 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                </div>
-                <div class="flex justify-end">
-                    <button type="submit" class="block text-white bg-blue-700 hover:p-1.5 hover:bg-blue-800 font-medium rounded-lg text-md p-1.5 text-center">Add Category</button>
-                </div>
-            </form>
-        </div>
     </div>
+
+    <!-- JavaScript for modal functionality -->
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+    </script>
 @endsection
