@@ -17,47 +17,43 @@
             <table class="w-full">
                 <thead class="bg-white border-b-2 border-gray-200">
                     <tr>
-                        <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">No</th>
-                        <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Name</th>
-                        <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Description</th>
-                        <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Category</th>
-                        <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Price</th>
-                        <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Stock</th>
-                        <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Status</th>
-                        <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Action</th>
+                        <th class="p-2 text-sm font-semibold text-center whitespace-nowrap">No</th>
+                        <th class="p-2 text-sm font-semibold text-center whitespace-nowrap">Name</th>
+                        <th class="p-2 text-sm font-semibold text-center whitespace-nowrap">Description</th>
+                        <th class="p-2 text-sm font-semibold text-center whitespace-nowrap">Category</th>
+                        <th class="p-2 text-sm font-semibold text-center whitespace-nowrap">Price</th>
+                        <th class="p-2 text-sm font-semibold text-center whitespace-nowrap">Stock</th>
+                        <th class="p-2 text-sm font-semibold text-center whitespace-nowrap">Status</th>
+                        <th class="p-2 text-sm font-semibold text-center whitespace-nowrap">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($items as $item)
                     <tr class="bg-white">
-                        <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
-                        <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->name }}</td>
-                        <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{$item->description}}</td>
-                        <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{$item->category->name}}</td>
-                        <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">Rp.{{ number_format($item->price, 0, ',', '.') }}</td>
-                        <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->stock }}</td>
-                        <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">
+                        <td class="p-2 text-sm text-gray-700 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
+                        <td class="p-2 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->name }}</td>
+                        <td class="p-2 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->description }}</td>
+                        <td class="p-2 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->category->name }}</td>
+                        <td class="p-2 text-sm text-gray-700 text-center whitespace-nowrap">Rp.{{ number_format($item->price, 0, ',', '.') }}</td>
+                        <td class="p-2 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->stock }}</td>
+                        <td class="p-2 text-sm text-gray-700 text-center whitespace-nowrap">
                             @if ($item->status == 'unavailable')
-                            <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-red-500 rounded">{{$item->status}}</span>
+                            <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-red-500 rounded">{{ $item->status }}</span>
                             @else
-                            <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-green-500 rounded">{{$item->status}}</span>
+                            <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-green-500 rounded">{{ $item->status }}</span>
                             @endif
                         </td>
                         <td>
                             <div class="flex justify-center gap-2">
-                                <div class="">
-                                    <button data-modal-target="modal-{{ $item->id }}" data-modal-toggle="modal-{{ $item->id }}" class="block text-white bg-blue-700 hover:p-2.5 hover:bg-blue-800 font-medium rounded-lg text-md p-2.5 text-center" type="button">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                </div>
-                                <div class="">
-                                    <button data-modal-target="modal-edit-{{ $item->id }}" data-modal-toggle="modal-edit-{{ $item->id }}" class="block text-white bg-green-500 hover:p-2.5 hover:bg-green-600 font-medium rounded-lg text-md p-2.5 text-center" type="button">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </button>
-                                </div>
+                                <button data-modal-target="modal-{{ $item->id }}" data-modal-toggle="modal-{{ $item->id }}" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-md p-2.5" type="button">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button data-modal-target="modal-edit-{{ $item->id }}" data-modal-toggle="modal-edit-{{ $item->id }}" class="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-md p-2.5" type="button">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </button>
                             </div>
                         </td>
-                    </tr> 
+                    </tr>
                     {{-- Detail Modal --}}
                     @include('staff.modals.detailitems', ['item' => $item])
                     {{-- Edit Modal --}}
@@ -66,4 +62,9 @@
                 </tbody>
             </table>
         </div>
+        <!-- Pagination Links -->
+        <div class="mt-4">
+            {{ $items->links() }}
+        </div>
+    </div>
 @endsection

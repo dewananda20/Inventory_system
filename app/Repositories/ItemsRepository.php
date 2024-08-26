@@ -13,11 +13,11 @@ class ItemsRepository
         $this->items = $items;
     }
 
-    public function getAll()
+    public function getAll($perPage = 10)
     {
         $items = Items::with(['user:id,username', 'category:id,name'])
                 ->orderBy('created_at', 'desc')
-                ->get();
+                ->paginate($perPage);
 
         return $items;
     }

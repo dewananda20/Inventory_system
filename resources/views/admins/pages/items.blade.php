@@ -30,33 +30,26 @@
                 <tbody>
                     @foreach ($items as $item)
                         <tr class="bg-white">
-                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
+                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $items->firstItem() + $loop->index }}</td>
                             <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->name }}</td>
-                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->description }}
-                            </td>
-                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->category->name }}
-                            </td>
-                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">Rp.
-                                {{ number_format($item->price, 0, ',', '.') }}</td>
+                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->description }}</td>
+                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->category->name }}</td>
+                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
                             <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->stock }}</td>
                             <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">
                                 @if ($item->status == 'unavailable')
-                                    <span
-                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-red-500 rounded">{{ $item->status }}</span>
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-red-500 rounded">{{ $item->status }}</span>
                                 @else
-                                    <span
-                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-green-500 rounded">{{ $item->status }}</span>
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-green-500 rounded">{{ $item->status }}</span>
                                 @endif
                             </td>
                             <td class="flex justify-center items-center gap-4 p-3">
-                                <button data-modal-target="modal-{{ $item->id }}"
-                                    data-modal-toggle="modal-{{ $item->id }}"
+                                <button data-modal-target="modal-{{ $item->id }}" data-modal-toggle="modal-{{ $item->id }}"
                                     class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center"
                                     type="button">
                                     Detail
                                 </button>
-                                <button data-modal-target="modal-edit-{{ $item->id }}"
-                                    data-modal-toggle="modal-edit-{{ $item->id }}"
+                                <button data-modal-target="modal-edit-{{ $item->id }}" data-modal-toggle="modal-edit-{{ $item->id }}"
                                     class="text-white bg-yellow-300 hover:bg-yellow-400 font-medium rounded-lg text-sm px-4 py-2 text-center"
                                     type="button">
                                     Edit
@@ -65,8 +58,7 @@
                                     onsubmit="return confirm('Are you sure you want to delete this item?');" style="display:inline-block; margin: 0;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit"
-                                        class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-4 py-2 text-center">
+                                    <button type="submit" class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-4 py-2 text-center">
                                         Delete
                                     </button>
                                 </form>
@@ -81,5 +73,9 @@
             </table>
         </div>
 
-
-    @endsection
+        <!-- Pagination Links -->
+        <div class="mt-4">
+            {{ $items->links() }}
+        </div>
+    </div>
+@endsection

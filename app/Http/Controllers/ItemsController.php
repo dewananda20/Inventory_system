@@ -32,7 +32,7 @@ class ItemsController extends Controller
 
     public function items()
     {
-        $items = $this->itemService->getAll();
+        $items = $this->itemService->getAll(10);
         $categories = Category::all();
 
         if (Auth::user()->role_id == 1) {
