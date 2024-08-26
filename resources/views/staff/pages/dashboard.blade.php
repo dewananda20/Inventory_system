@@ -59,7 +59,7 @@
                             <div class="bg-gray-100 p-4 rounded-lg shadow-md">
                                 <div class="mb-4">
                                     <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Username</h3>
-                                    <p class="text-gray-900 dark:text-gray-400">{{ Auth::user()->username }}</p>
+                                    <p class="text-gray-900 dark:text-gray-400">{{ Auth::user()->name }}</p>
                                 </div>
                                 <div class="mb-4">
                                     <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Email</h3>
