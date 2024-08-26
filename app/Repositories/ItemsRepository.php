@@ -18,6 +18,11 @@ class ItemsRepository
         $items = Items::with(['user:id,username', 'category:id,name'])
                 ->orderBy('created_at', 'desc')
                 ->paginate($perPage);
+                
+                $items->getCollection()->transform(function($item) {
+                    $item->stock_status = $item->stock < 10 ? 'low stock' : 'normal';
+                    return $item;
+            });
 
         return $items;
     }

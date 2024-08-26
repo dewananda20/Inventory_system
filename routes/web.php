@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin-dashboard', [ItemsController::class, 'index']);
     Route::get('/items', [ItemsController::class, 'items']);
+    Route::get('/items', [ItemsController::class, 'items'])->name('items.index');
     Route::post('/items', [ItemsController::class, 'store'])->name('items.store');
     Route::get('/items/{id}', [ItemsController::class, 'show']);
     Route::delete('/items-admin/{id}', [ItemsController::class, 'delete'])->name('items.destroy.admins');

@@ -27,6 +27,10 @@
         <i class="bi bi-people text-white"></i>
         <a href="/admin/users" class="text-[15px] ml-4 text-gray-200">System User</a>
     </div>
+    <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-800 text-white">
+        <i class="bi bi-gear text-white"></i>
+        <a href="" class="text-[15px] ml-4 text-gray-200">Settings</a>
+    </div>
 
     {{-- <hr class="my-4 text-gray-600"> --}}
     {{-- <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-800 text-white" onclick="dropdown()">

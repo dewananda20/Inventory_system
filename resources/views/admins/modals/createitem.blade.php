@@ -1,6 +1,10 @@
 <!-- resources/views/admins/modals/createitem.blade.php -->
 <div id="create-item-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-4">
+    <!-- Backdrop -->
+    <div class="fixed inset-0 bg-gray-900 opacity-50"></div>
+
+    <!-- Modal content -->
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-4 relative z-10">
         <h3 class="text-xl font-semibold mb-4">Tambah Data Item</h3>
         <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -61,6 +65,7 @@
         </form>
     </div>
 </div>
+
 <script>
     function openModal(modalId) {
         document.getElementById(modalId).classList.remove('hidden');
@@ -69,5 +74,4 @@
     function closeModal(modalId) {
         document.getElementById(modalId).classList.add('hidden');
     }
-    </script>
-    
+</script>

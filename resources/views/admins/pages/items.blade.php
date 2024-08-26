@@ -7,13 +7,22 @@
 @section('content')
     <div class="w-full p-5 flex flex-col mt-6 gap-4">
         <h2 class="text-2xl font-semibold mb-2">List Data Items</h2>
-        <div class="overflow-x-auto rounded-lg shadow-lg shadow-black/15 mb-5">
-            <div class="flex justify-end mb-4">
+
+        <!-- Search Form -->
+        <form action="{{ route('items.index') }}" method="GET" class="mb-4">
+            <div class="flex items-center gap-2">
+                <input type="text" name="search" placeholder="Search by item name..." value="{{ request()->search }}"
+                    class="w-full p-2 border border-gray-300 rounded-md">
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md">Search</button>
                 <button onclick="openModal('create-item-modal')"
-                    class="px-4 py-2 bg-blue-600 text-white text-[14px] font-medium rounded-md">
-                    Tambah Data Item
-                </button>
+                class="px-4 py-2 bg-blue-600 text-white text-[14px] font-medium rounded-md">
+                Tambah Data Item
+            </button>
             </div>
+        </form>
+
+        <!-- Items Table -->
+        <div class="overflow-x-auto rounded-lg shadow-lg shadow-black/15 mb-5">
             <table class="w-full">
                 <thead class="bg-white border-b-2 text-center border-gray-200">
                     <tr>
@@ -23,6 +32,7 @@
                         <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Category</th>
                         <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Price</th>
                         <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Stock</th>
+                        <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Stock Status</th>
                         <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Status</th>
                         <th class="p-3 text-sm font-semibold tracking-wide text-center whitespace-nowrap">Action</th>
                     </tr>
@@ -36,6 +46,13 @@
                             <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->category->name }}</td>
                             <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
                             <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">{{ $item->stock }}</td>
+                            <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">
+                                @if ($item->stock < 10)
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-yellow-500 rounded">Low Stock</span>
+                                @else
+                                    <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-green-500 rounded">Normal</span>
+                                @endif
+                            </td>
                             <td class="p-3 text-sm text-gray-700 text-center whitespace-nowrap">
                                 @if ($item->status == 'unavailable')
                                     <span class="p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-red-500 rounded">{{ $item->status }}</span>
@@ -74,7 +91,7 @@
         </div>
 
         <!-- Pagination Links -->
-        <div class="mt-4">
+        <div class="mt-4 flex justify-end">
             {{ $items->links() }}
         </div>
     </div>

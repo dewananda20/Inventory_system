@@ -23,6 +23,7 @@ class ItemsController extends Controller
         $lowStockItems = Items::where('stock', '<=', 10)->count();
         $totalCategories = Category::count(); 
         
+        
         if (Auth::user()->role_id == 1) {
             return view('admins.pages.dashboard', compact('totalStock', 'lowStockItems', 'totalCategories'));
         } elseif(Auth::user()->role_id == 2) {
@@ -30,15 +31,22 @@ class ItemsController extends Controller
         }
     }
 
-    public function items()
+    public function items(Request $request)
     {
-        $items = $this->itemService->getAll(10);
+        $searchTerm = $request->input('search'); // Get the search term from the request
+        
+        $items = Items::query()
+            ->when($searchTerm, function ($query, $searchTerm) {
+                return $query->where('name', 'LIKE', '%' . $searchTerm . '%');
+            })
+            ->paginate(10); // Paginate the results
+        
         $categories = Category::all();
-
+    
         if (Auth::user()->role_id == 1) {
-            return view('admins.pages.items', compact('items', 'categories'));
-        } elseif(Auth::user()->role_id == 2) {
-            return view('staff.pages.items', compact('items', 'categories'));
+            return view('admins.pages.items', compact('items', 'categories', 'searchTerm'));
+        } elseif (Auth::user()->role_id == 2) {
+            return view('staff.pages.items', compact('items', 'categories', 'searchTerm'));
         }
     }
 

@@ -31,7 +31,7 @@
                 <p class="text-3xl font-bold text-green-500 mt-2">{{ $totalStock }}</p>
                 <p class="text-sm text-gray-500 mt-1">Total item stock</p>
             </div>
-            <div class="bg-white shadow-md rounded-lg p-4">
+            <div class="bg-white shadow-md rounded-lg p-4 mb-6">
                 <h2 class="text-xl font-semibold text-gray-700">Low Stock Items</h2>
                 <p class="text-3xl font-bold text-yellow-500 mt-2">{{ $lowStockItems }}</p>
                 <p class="text-sm text-gray-500 mt-1">Items with low stock</p>
